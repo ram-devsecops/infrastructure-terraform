@@ -1,4 +1,0 @@
-resource "aws_eip" "default_eip" {
-  vpc         = true
-  depends_on  = ["aws_internet_gateway.gw"]
-}

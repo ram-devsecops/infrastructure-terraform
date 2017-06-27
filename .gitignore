@@ -8,6 +8,7 @@
 
 # Vars
 terraform.tfvars
+!*/terraform.tfvars
 
 # Plans
 plan
