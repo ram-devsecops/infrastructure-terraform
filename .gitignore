@@ -6,9 +6,8 @@
 # Module directory
 .terraform/
 
-# Vars
-terraform.tfvars
-!*/terraform.tfvars
+# shell scripts
+*.sh
 
 # Plans
 plan

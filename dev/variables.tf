@@ -5,10 +5,5 @@ variable "vpc_environment" {
 }
 
 # PG variables
-variable "PG_DB_USER" {
-  default = "b1g0r!114"
-}
-
-variable "PG_DB_PASS" {
-  default = "^uAEP92u)pPWEamiY9yD"
-}
+variable "PG_DB_USER" {}
+variable "PG_DB_PASS" {}
