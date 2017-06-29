@@ -7,6 +7,7 @@ terragrunt = {
       region     = "us-east-2"
       encrypt    = true
       lock_table = "terragrunt"
+      profile    = "terragrunt"
     }
   }
 }
