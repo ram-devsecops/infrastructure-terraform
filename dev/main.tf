@@ -8,25 +8,30 @@ provider "aws" {
 
 data "aws_caller_identity" "current" {}
 
+terraform {
+  backend "s3" {}
+}
+
 # VPC
 module "vpc" {
-  source = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=simplify//init/vpc"
+  source = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//init/vpc"
 }
 
 # Bastion
 module "bastion" {
-  source         = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=simplify//init/bastion"
+  source                = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//init/bastion"
 
-  vpc_id          = "${module.vpc.id}"
-  vpc_region      = "${module.vpc.region}"
-  subnet_ids      = "${module.vpc.public_subnet_ids}"
-  key_name        = "sbi-bastion"
-  key_file        = "./sbi-bastion.pub"
+  vpc_id                = "${module.vpc.id}"
+  vpc_region            = "${module.vpc.region}"
+  s3_bucket_name_suffix = "${var.vpc_environment}"
+  subnet_ids            = "${module.vpc.public_subnet_ids}"
+  key_name              = "sbi-bastion"
+  key_file              = "./sbi-bastion.pub"
 }
 
 # Postgres
 module "postgres" {
-  source               = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=simplify//data-stores/postgres"
+  source               = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//data-stores/postgres"
 
   vpc_id               = "${module.vpc.id}"
   db_password          = "${var.DEV_PG_DB_PASS}" # via environment variable
