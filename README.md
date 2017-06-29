@@ -3,6 +3,8 @@
 # infrastructure-terraform
 Our terraformed infrastructure configuration.
 
+Looking for terraform modules? Visit to our [infrastructure-terraform-modules](https://github.com/silverback-insights/infrastructure-terraform-modules) repo.
+
 ## Setup
 1. Download [terraform ![terraform](https://www.google.com/s2/favicons?domain=www.terraform.io)](https://www.terraform.io/downloads.html) and run installer.
 2. Add the terraform binary to your PATH
