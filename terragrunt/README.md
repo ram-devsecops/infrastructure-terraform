@@ -24,4 +24,10 @@ To create the `terragrunt` user:
 
 ```
 
+You should see an output like the following if everything was peachy
+
+![success](https://cdn.rawgit.com/silverback-insights/hosted-assets/6d1123b8/images/terragrunt-user-output.png)
+
+Run `aws configure --profile terragrunt` and copy/paste the values.
+
 Now go get your grunt on.
