@@ -31,10 +31,10 @@ module "bastion" {
 
 # Postgres
 module "postgres" {
-  source               = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//data-stores/postgres"
+  source                    = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//data-stores/postgres"
 
-  vpc_id               = "${module.vpc.id}"
-  db_password          = "${var.DEV_PG_DB_PASS}" # via environment variable
-  subnet_ids           = ["${module.vpc.private_subnet_ids}"]
-  security_group_ids   = ["${module.vpc.default_security_group_id}"]
+  vpc_id                    = "${module.vpc.id}"
+  db_password               = "${var.DEV_PG_DB_PASS}" # via environment variable
+  subnet_ids                = ["${module.vpc.private_subnet_ids}"]
+  bastion_security_group_id = "${module.bastion.security_group_id}"
 }
