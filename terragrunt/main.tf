@@ -6,9 +6,14 @@ provider "aws" {
 
 data "aws_caller_identity" "current" {}
 
+data "aws_region" "current" {
+  current = true
+}
+
 # Create user
 resource "aws_iam_user" "user" {
-  name = "${var.iam_profile_name}"
+  name          = "${var.iam_profile_name}"
+  force_destroy = true
 }
 
 # Build out policy in memory
@@ -22,7 +27,8 @@ data "aws_iam_policy_document" "document" {
     ]
 
     resources = [
-      "arn:aws:s3:::*-terraform-state*/*"
+      "arn:aws:s3:::silverbackinsights-terraform-state*",
+      "arn:aws:s3:::silverbackinsights-terraform-state*/*"
     ]
   }
 
@@ -52,4 +58,8 @@ resource "aws_iam_policy_attachment" "wire-up" {
   name = "${var.iam_profile_name}-policy-attachment"
   users = ["${aws_iam_user.user.name}"]
   policy_arn = "${aws_iam_policy.policy.arn}"
+}
+
+resource "aws_iam_access_key" "key" {
+  user = "${aws_iam_user.user.name}"
 }
