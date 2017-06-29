@@ -6,7 +6,7 @@ terragrunt = {
       key        = "${path_relative_to_include()}/terraform.tfstate"
       region     = "us-east-2"
       encrypt    = true
-      lock_table = "tf-state-lock"
+      lock_table = "terragrunt-${path_relative_to_include()}"
     }
   }
 }

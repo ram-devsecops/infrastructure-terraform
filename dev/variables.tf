@@ -4,6 +4,13 @@ variable "vpc_environment" {
   default     = "d"
 }
 
-# PG variables
-variable "PG_DB_USER" {}
-variable "PG_DB_PASS" {}
+# Environment variables
+
+# AWS
+variable "DEV_AWS_ACCESS_KEY_ID" {}
+variable "DEV_AWS_SECRET_ACCESS_KEY" {}
+variable "DEV_AWS_DEFAULT_REGION" {}
+
+# PG
+variable "DEV_PG_DB_USER" {}
+variable "DEV_PG_DB_PASS" {}
