@@ -4,7 +4,7 @@ terragrunt = {
     config {
       bucket     = "silverbackinsights-terraform-state"
       key        = "${path_relative_to_include()}/terraform.tfstate"
-      region     = "us-east-2"
+      region     = "us-east-1"
       encrypt    = true
       lock_table = "terragrunt"
       profile    = "terragrunt"
