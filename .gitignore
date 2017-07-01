@@ -6,8 +6,8 @@
 # Module directory
 .terraform/
 
-# shell scripts
-*.sh
+# Environment var script
+.env
 
 # Plans
 plan

@@ -22,9 +22,13 @@ Looking for terraform modules? Visit to our [infrastructure-terraform-modules](h
     * Skip this step if already completed
     * `aws configure --profile terragrunt`
     * Follow prompts
-1. Export env vars...
+1. Create your environment variable file
+    * `touch ~/.terraform-env`
+    * `chmod a+x ~/.terraform-env`
+    * `nano ~/.terraform-env`
+    * Copy/paste the following:
     ```
-    # Replace with the proper environment's AWS creds
+    # Replace with the proper environment info
     export \
       TF_VAR_DEV_AWS_ACCESS_KEY_ID="" \
       TF_VAR_DEV_AWS_SECRET_ACCESS_KEY="" \
@@ -41,8 +45,8 @@ Looking for terraform modules? Visit to our [infrastructure-terraform-modules](h
       TF_VAR_PRD_AWS_DEFAULT_REGION="" \
       TF_VAR_PRD_PG_DB_PASS="" \
       ;
-
-    env | grep TF_VAR && echo "\nEnvironment variables set 👍"
     ```
+1. Initialize those env vars
+    * `./load-env.sh`
 1. `terragrunt plan # apply, etc.`
 1. Profit.
