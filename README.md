@@ -18,10 +18,6 @@ Looking for terraform modules? Visit to our [infrastructure-terraform-modules](h
 1. Create the `terragrunt` aws user
     * Skip this step if already created
     * See [The `terragrunt` user](./terragrunt) for the howto
-1. Configure `terragrunt` aws profile locally
-    * Skip this step if already completed
-    * `aws configure --profile terragrunt`
-    * Follow prompts
 1. Create your environment variable file
     * `touch ~/.terraform-env`
     * `chmod a+x ~/.terraform-env`

@@ -11,7 +11,7 @@ OPTIONS:
     -h | --help     Shows this help text
     -v | --verbose  Outputs terraform variables and their values
     -q | --quiet    Disables all stdout
-    -c | --config   To change where to load the config file. Defaults to ${OPT_CONIG}
+    -c | --config   To change where to load the config file. Defaults to ${OPT_CONFIG}
 
 "
 }
@@ -32,9 +32,10 @@ if [ "$OPT_HELP" -eq 1 ]; then
 fi
 
 if ! [ -f "$OPT_CONFIG" ]; then
-  echo "Could not find config file ${OPT_CONFIG} . Make sure it exists and is executable (chmod a+x "${OPT_CONFIG}")" && exit 1;
+  echo "Could not find config file ${OPT_CONFIG} . Make sure it exists and is executable (chmod a+x ${OPT_CONFIG})" && exit 1;
 else
   # Export vars
+  # shellcheck disable=SC1090
   source "$OPT_CONFIG"
 fi
 
