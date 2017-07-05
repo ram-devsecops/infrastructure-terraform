@@ -43,6 +43,6 @@ Looking for terraform modules? Visit to our [infrastructure-terraform-modules](h
       ;
     ```
 1. Initialize those env vars
-    * `./load-env.sh`
+    * `source ./load-env.sh`
 1. `terragrunt plan # apply, etc.`
 1. Profit.
