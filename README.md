@@ -15,14 +15,17 @@ Looking for terraform modules? Visit to our [infrastructure-terraform-modules](h
 1. Add the terraform binary to your `PATH`
 1. Install [terragrunt ![terragrunt](https://avatars0.githubusercontent.com/u/17118990?v=3&s=16)](https://github.com/gruntwork-io/terragrunt)
     (hint: `brew install terragrunt`)
-1. Create the `terragrunt` aws user
+1. Create the `terragrunt` aws user (to manage global state)
     * Skip this step if already created
     * See [The `terragrunt` user](./terragrunt) for the howto
 1. Create your environment variable file
-    * `touch ~/.terraform-env`
-    * `chmod a+x ~/.terraform-env`
-    * `nano ~/.terraform-env`
-    * Copy/paste the following:
+    ```
+    touch ~/.terraform-env && \
+    chmod a+x ~/.terraform-env && \
+    nano ~/.terraform-env \
+    ;
+    ```
+1. Copy/paste the following into `~/.terraform-env`:
     ```
     # Replace with the proper environment info
     export \
@@ -44,5 +47,6 @@ Looking for terraform modules? Visit to our [infrastructure-terraform-modules](h
     ```
 1. Initialize those env vars
     * `source ./load-env.sh`
-1. `terragrunt plan # apply, etc.`
+1. Run terragrunt commands
+    * `terragrunt plan # apply, etc.`
 1. Profit.

@@ -1,6 +1,6 @@
 # VPC variables
 variable "vpc_environment" {
-  description = "The environment tag. Please use one of the following: dev, test, qa, stg, or prd."
+  description = "The environment tag. Please use one of the following: dev, tst, uat, stg, or prd."
   default     = "dev"
 }
 
