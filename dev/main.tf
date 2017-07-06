@@ -29,6 +29,30 @@ module "bastion" {
   key_file              = "./sbi-bastion.pub"
 }
 
+# Users
+module "users" {
+  source      = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//init/users"
+
+  environment = "${var.vpc_environment}"
+}
+
+# UI Marketing (static)
+module "ui_marketing" {
+  source        = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//services/ui-static"
+
+  domain        = "${var.cert_name}"
+  cicd_user_arn = "${module.users.cicd_user_arn}"
+}
+
+# UI Signup (static)
+module "ui_signup" {
+  source        = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//services/ui-static"
+
+  domain        = "${var.cert_name}"
+  cicd_user_arn = "${module.users.cicd_user_arn}"
+}
+
+
 # Postgres
 module "postgres" {
   source                               = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//data-stores/postgres"
