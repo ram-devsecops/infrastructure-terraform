@@ -17,6 +17,11 @@ module "vpc" {
   source = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//init/vpc"
 }
 
+# Sensitive data KMS key
+module "kms" {
+  source = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//init/kms-key"
+}
+
 # Bastion
 module "bastion" {
   source                = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//init/bastion"
@@ -53,6 +58,18 @@ module "ui_signup" {
   domain_fqdn   = "${var.domain_signup}"
   cicd_user_arn = "${module.users.cicd_user_arn}"
 }
+
+# # UI app (dynamic)
+# module "ui_app" {
+#   source = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//services/ui-app"
+#
+#   vpc_id                    = "${module.vpc.id}"
+#   vpc_environment           = "${var.vpc_environment}"
+#   kms_key_alias             = "${module.kms.key_alias}"
+#
+#   bastion_security_group_id = "${module.bastion.security_group_id}"
+#   graphql_security_group_id = "${module.graphql.security_group_id}"
+# }
 
 
 # Postgres
