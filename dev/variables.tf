@@ -4,9 +4,19 @@ variable "vpc_environment" {
   default     = "dev"
 }
 
-variable "cert_name" {
+variable "domain_cert_wildcard" {
   description = "The wildcard cert name (not FQDN)"
-  default     = "silverbackinsights.com"
+  default     = "*.silverbackinsights.com"
+}
+
+variable "domain_marketing" {
+  description = "The FQDN for the marketing ui"
+  default     = "dev.silverbackinsights.com"
+}
+
+variable "domain_signup" {
+  description = "The FQDN for the signup ui"
+  default     = "dev-signup.silverbackinsights.com"
 }
 
 # Environment variables 👇

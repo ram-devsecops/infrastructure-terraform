@@ -40,7 +40,8 @@ module "users" {
 module "ui_marketing" {
   source        = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//services/ui-static"
 
-  domain        = "${var.cert_name}"
+  domain_cert   = "${var.domain_cert_wildcard}"
+  domain_fqdn   = "${var.domain_marketing}"
   cicd_user_arn = "${module.users.cicd_user_arn}"
 }
 
@@ -48,7 +49,8 @@ module "ui_marketing" {
 module "ui_signup" {
   source        = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//services/ui-static"
 
-  domain        = "${var.cert_name}"
+  domain_cert   = "${var.domain_cert_wildcard}"
+  domain_fqdn   = "${var.domain_signup}"
   cicd_user_arn = "${module.users.cicd_user_arn}"
 }
 
