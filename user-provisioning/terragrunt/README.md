@@ -15,12 +15,13 @@ To create the `terragrunt` user:
     TF_VAR_AWS_ACCESS_KEY_ID="" \
     TF_VAR_AWS_SECRET_ACCESS_KEY="" \
     TF_VAR_AWS_DEFAULT_REGION="" \
+    ;
 
   # PWD: ./terragrunt
   terraform plan && \
-  echo "No errors found in your evil plan. Applying now..." && \
-  terraform apply \
-  ;
+    echo "No errors found in your evil plan. Applying now..." && \
+    terraform apply \
+    ;
 
 ```
 
