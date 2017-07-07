@@ -5,13 +5,23 @@ Our terraformed infrastructure configuration.
 
 Looking for terraform modules? Visit to our [infrastructure-terraform-modules](https://github.com/silverback-insights/infrastructure-terraform-modules) repo.
 
+## Table of Contents
+* [Assumptions](#assumptions)
+* [Setup](#setup)
+    * [CLI tools](#cli-tools)
+    * [Terragrunt State Management](#terragrunt-state-management)
+    * [Terraform Admin](#terraform-admin)
+    * [Local Environment Variables](#local-environment-variables)
+* [Build Out](#build-out)
+* [TODO](#todo)
+
 ## Assumptions
 1. You are using MacOS
 1. You have already created an AWS account
 
 ## Setup
 
-### CLI tool installs
+### CLI tools
 1. [Install **aws cli** ![aws cli](https://www.google.com/s2/favicons?domain=aws.amazon.com)](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)
     * `pip install --upgrade --user awscli`
 1. Download [terraform ![terraform](https://www.google.com/s2/favicons?domain=www.terraform.io)](https://www.terraform.io/downloads.html) and run installer.
@@ -21,15 +31,23 @@ Looking for terraform modules? Visit to our [infrastructure-terraform-modules](h
     * `brew install terragrunt`
 
 ### Terragrunt State Management
-1. Create the `terragrunt` iam user for your environment (to manage global state)
-    * See [The `terragrunt` user](./user-provisioning/terragrunt) howto
+**This should only be performed once for your entire organization (ie not per environment).**
 
-### Run Once Per Environment
-Each environment you would like to terraform you will need to perform the following steps exactly once.
+* Create the `terragrunt` iam user for your environment (to manage global state)
+* See [The `terragrunt` user](./user-provisioning/terragrunt) howto
 
-1. Create the `terraform-admin` iam user for your environment (to build out the actual infrastructure)
-    * Skip this step if already created
-    * See [The `terraform-admin` user](./user-provisioning/terraform-admin) howto
+*NOTE: It is possible to run multiple times. Every subsequent run will require you to refresh your `terragrunt` aws profile on your local machine.*
+
+### Terraform Admin
+This piece creates a `terraform-admin` user that is responsible for building out your entire environment's infrastructure. This user will have `FullAWSAccess` permissions as a result.
+
+**This should be ran once for *each* environment you would like to terraform.**
+
+* Create the `terraform-admin` iam user for your environment (to build out the actual infrastructure)
+* Skip this step if you've already completed for the given environment
+* See [The `terraform-admin` user](./user-provisioning/terraform-admin) howto
+
+*NOTE: It is possible to run multiple times. Every subsequent run will require you to update the values in your `~/.terraform-env` file and refresh your local environment variables.*
 
 ### Local Environment Variables
 1. Create a file to store your terraform environment variables
@@ -44,7 +62,7 @@ Each environment you would like to terraform you will need to perform the follow
     #!/bin/bash
 
     # Replace with the proper terraform-admin values per environment
-    # PG_DB_PASS values should be generated and provided by you
+    # PG_DB_PASS values should be randomly generated and stored safely by you
     export \
       TF_VAR_DEV_AWS_ACCESS_KEY_ID="" \
       TF_VAR_DEV_AWS_SECRET_ACCESS_KEY="" \
@@ -64,12 +82,25 @@ Each environment you would like to terraform you will need to perform the follow
     ```
 1. Initialize those env vars
     * `source ./load-env.sh`
-    * NOTE: You should run this command everytime you make changes
 
-## Build out the environment
+*NOTE: You should reinitialize your env vars in your terminal session every time you make changes to your `~/.terraform-env` file.*
+
+## Build Out
 Assuming you ran through all the steps above, you can now build things.
 
 1. `cd ./[env of your choosing]`
 1. Run terragrunt commands
-    * `terragrunt plan # apply, etc.`
+    ```
+    # Clear local cached modules
+    rm -rf ./.terraform
+
+    # Verify plan looks good
+    terragrunt plan
+
+    # Apply changes
+    #terragrunt apply # commented out to prevent potentially harmful copy/paste
+    ```
 1. Profit.
+
+## TODO
+* Restrict `terraform-admin` user's permissions to only the minimum set
