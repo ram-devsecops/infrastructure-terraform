@@ -110,3 +110,13 @@ module "graphql" {
   ui_app_security_group_id   = "${module.ui_app.security_group_id}"
   postgres_security_group_id = "${module.postgres.security_group_id}"
 }
+
+# Redis
+module "redis" {
+  source                    = "git@github.com:silverback-insights/infrastructure-terraform-modules?ref=master//data-stores/redis"
+
+  vpc_id                    = "${module.vpc.id}"
+  subnet_ids                = ["${module.vpc.private_subnet_ids}"]
+  dns_zone_name             = "${module.dns.name}"
+  graphql_security_group_id = "${module.graphql.security_group_id}"
+}
